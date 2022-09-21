@@ -1,14 +1,12 @@
 package me.slabby.slabbot;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 import io.github.cdimascio.dotenv.Dotenv;
+import me.slabby.slabbot.listeners.BotCommands;
+import me.slabby.slabbot.listeners.EventListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 
 public class SlabBot {
 
@@ -21,11 +19,17 @@ public class SlabBot {
         config = Dotenv.configure().load();
         token = config.get("TOKEN");
 
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
-        builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.playing("with your mom"));
 
-        builder.build();
+        
+        JDABuilder builder = JDABuilder.createDefault(token);
+        builder.addEventListeners(new BotCommands());
+        JDA jda = builder.build();
+        jda.getPresence().setActivity(Activity.playing("Hello World!"));
+        jda.getPresence().setStatus(OnlineStatus.ONLINE);
+        jda.upsertCommand("stats", "Get stats in channel").queue();
+
+        jda.addEventListener(new EventListener());
+        jda.addEventListener(new BotCommands());
     }
 
     public Dotenv getConfig() {
