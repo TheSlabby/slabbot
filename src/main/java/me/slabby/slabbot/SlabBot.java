@@ -1,8 +1,5 @@
 package me.slabby.slabbot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.cdimascio.dotenv.Dotenv;
 import me.slabby.slabbot.listeners.BotCommands;
 import me.slabby.slabbot.listeners.EventListener;
@@ -10,8 +7,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class SlabBot {
 
