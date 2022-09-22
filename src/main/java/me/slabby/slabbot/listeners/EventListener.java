@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 public class EventListener extends ListenerAdapter {
     
     public EventListener() {
-        System.out.println("Instantiating EventListener...");
     }
 
     @Override
@@ -21,4 +20,5 @@ public class EventListener extends ListenerAdapter {
             event.getChannel().sendMessage("pong").queue();
         }
     }
+
 }

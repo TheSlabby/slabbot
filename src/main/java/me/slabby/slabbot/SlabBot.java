@@ -1,5 +1,8 @@
 package me.slabby.slabbot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import me.slabby.slabbot.listeners.BotCommands;
 import me.slabby.slabbot.listeners.EventListener;
@@ -7,6 +10,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class SlabBot {
 
@@ -26,10 +31,19 @@ public class SlabBot {
         JDA jda = builder.build();
         jda.getPresence().setActivity(Activity.playing("Hello World!"));
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
-        jda.upsertCommand("stats", "Get stats in channel").queue();
 
-        jda.addEventListener(new EventListener());
-        jda.addEventListener(new BotCommands());
+        //command data
+        // List<CommandData> commands = new ArrayList<>();
+        // commands.add(Commands.slash("stats", "Gets stats in channel"));
+        // commands.add(Commands.slash("roles", "Lists the roles in the server"));
+        // for (CommandData command : commands) {
+        //     jda.upsertCommand(command);
+        // }
+        jda.upsertCommand("roles", "Gets the roles in the server");
+        jda.upsertCommand("stats", "Gets the channel statistics");
+
+        //event listeners
+        jda.addEventListener(new EventListener(), new BotCommands());
     }
 
     public Dotenv getConfig() {
@@ -38,7 +52,7 @@ public class SlabBot {
 
     public static void main(String[] args) {
         try {
-            SlabBot bot = new SlabBot();
+            new SlabBot();
             
         } catch (Exception e) {
             e.printStackTrace();
