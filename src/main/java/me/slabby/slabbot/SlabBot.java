@@ -14,7 +14,6 @@ public class SlabBot {
     private final String token;
 
     public SlabBot() throws Exception {
-        System.out.println("Instantiating SlabBot...");
 
         config = Dotenv.configure().load();
         token = config.get("TOKEN");
