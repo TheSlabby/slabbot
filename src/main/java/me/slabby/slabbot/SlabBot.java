@@ -13,11 +13,17 @@ public class SlabBot {
     private final Dotenv config;
     private final String token;
 
+    public static Crypto crypto;
+    
     public SlabBot() throws Exception {
 
         config = Dotenv.configure().load();
         token = config.get("TOKEN");
 
+        //setup crypto
+        crypto = new Crypto();
+        crypto.addCrypto("BTC");
+        crypto.addCrypto("ETH");
 
         
         JDABuilder builder = JDABuilder.createDefault(token);
