@@ -2,24 +2,26 @@ package me.slabby.slabbot.commands;
 
 import me.slabby.slabbot.CommandInterface;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Roles implements CommandInterface {
 
-    private SlashCommandInteractionEvent event;
+    private MessageReceivedEvent event;
+    private String[] args;
 
-    public Roles (SlashCommandInteractionEvent event) {
+    public Roles (String[] args, MessageReceivedEvent event) {
+        this.args = args;
         this.event = event;
     }
 
     @Override
-    public String execute() {
+    public void execute() {
         String response = "**Roles:**\n";
         for (Role role : event.getJDA().getRoles()) {
             response += role.getAsMention() + "\n";
         }
 
-        return response;
+        event.getChannel().sendMessage(response).queue();
     }
     
 }

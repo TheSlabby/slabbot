@@ -1,7 +1,6 @@
 package me.slabby.slabbot;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import me.slabby.slabbot.listeners.BotCommands;
 import me.slabby.slabbot.listeners.EventListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -12,6 +11,7 @@ public class SlabBot {
 
     private final Dotenv config;
     private final String token;
+    private final String cryptoToken;
 
     public static Crypto crypto;
     
@@ -19,6 +19,7 @@ public class SlabBot {
 
         config = Dotenv.configure().load();
         token = config.get("TOKEN");
+        cryptoToken = config.get("CRYPTO_TOKEN");
 
         //setup crypto
         crypto = new Crypto();
@@ -27,7 +28,6 @@ public class SlabBot {
 
         
         JDABuilder builder = JDABuilder.createDefault(token);
-        builder.addEventListeners(new BotCommands());
         JDA jda = builder.build();
         jda.getPresence().setActivity(Activity.playing("Hello World!"));
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
@@ -39,11 +39,11 @@ public class SlabBot {
         // for (CommandData command : commands) {
         //     jda.upsertCommand(command);
         // }
-        jda.upsertCommand("roles", "Gets the roles in the server");
-        jda.upsertCommand("stats", "Gets the channel statistics");
+        // jda.upsertCommand("roles", "Gets the roles in the server");
+        // jda.upsertCommand("stats", "Gets the channel statistics");
 
         //event listeners
-        jda.addEventListener(new EventListener(), new BotCommands());
+        jda.addEventListener(new EventListener());
     }
 
     public Dotenv getConfig() {

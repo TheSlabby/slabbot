@@ -2,6 +2,5 @@ package me.slabby.slabbot;
 
 
 public interface CommandInterface {
-
-    public String execute(); //returns the response
+    public void execute(); //returns the response
 }

@@ -1,4 +1,9 @@
-.env
-.vscode
+# hidden files
+.*
 *.class
 target/
+
+# shell files
+*.bat
+*.sh
+*.ps1
